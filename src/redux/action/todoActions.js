@@ -17,7 +17,8 @@ export const fetchTodos = () => async (dispatch) => {
   try {
     const response = await axios.get(`${API_URL}api/todos`, {
       headers: {
-        Authorization: userData?.token ? `Bearer ${userData?.token}` : "", 
+        'Authorization': userData?.token ? `Bearer ${userData?.token}` : "",
+        'Content-Type': 'application/json'
       },
     });
     // console.log(response.data.getAllTodo)
@@ -33,7 +34,8 @@ export const addTodo = (todoData) => async (dispatch) => {
   try {
     const response = await axios.post(`${API_URL}api/todos`, todoData , {
       headers: {
-        Authorization: userData?.token ? `Bearer ${userData?.token}` : "", 
+        'Authorization': userData?.token ? `Bearer ${userData?.token}` : "",
+        'Content-Type': 'application/json'
       },
     });
     dispatch({ type: ADD_TODO_SUCCESS, payload: response.data.newTodo
@@ -51,7 +53,8 @@ export const updateTodo = (id, updatedData) => async (dispatch) => {
   try {
     const response = await axios.put(`${API_URL}api/todos/${id}`, updatedData , {
       headers: {
-        Authorization: userData?.token ? `Bearer ${userData?.token}` : "", 
+        'Authorization': userData?.token ? `Bearer ${userData?.token}` : "",
+        'Content-Type': 'application/json'
       },
     });
     dispatch({ type: UPDATE_TODO_SUCCESS, payload: response.data.updateTodo });
@@ -66,7 +69,8 @@ export const deleteTodo = (id) => async (dispatch) => {
   try {
     await axios.delete(`${API_URL}api/todos/${id}` , {
       headers: {
-        Authorization: userData?.token ? `Bearer ${userData?.token}` : "", 
+        'Authorization': userData?.token ? `Bearer ${userData?.token}` : "",
+        'Content-Type': 'application/json'
       },
     });
     dispatch({ type: DELETE_TODO_SUCCESS, payload: id });
