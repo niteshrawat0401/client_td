@@ -35,11 +35,14 @@ export const fetchTodos = () => async (dispatch, getState) => {
 };
 
 // Add a New To-Do
-export const addTodo = (todoData) => async (dispatch) => {
+export const addTodo = (todoData) => async (dispatch, ) => {
+
+  let token = getState().auth?.token || userData?.token
+  console.log(token);
 
   const header = {
     headers: {
-      Authorization: userData?.token ? `Bearer ${userData?.token}` : "",
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
     },
   }
@@ -55,13 +58,16 @@ export const addTodo = (todoData) => async (dispatch) => {
 };
 
 // Update a To-Do
-export const updateTodo = (id, updatedData) => async (dispatch) => {
-    const header = {
-      headers: {
-        Authorization: userData?.token ? `Bearer ${userData?.token}` : "",
-        'Content-Type': 'application/json'
-      },
-    }
+export const updateTodo = (id, updatedData) => async (dispatch, getState) => {
+  let token = getState().auth?.token || userData?.token
+  console.log(token);
+
+  const header = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+  }
   dispatch({ type: UPDATE_TODO_REQUEST });
   try {
     const response = await axios.put(`${API_URL}api/todos/${id}`, updatedData , header);
@@ -72,11 +78,14 @@ export const updateTodo = (id, updatedData) => async (dispatch) => {
 };
 
 // Delete a To-Do
-export const deleteTodo = (id) => async (dispatch) => {
+export const deleteTodo = (id) => async (dispatch, getState) => {
+
+  let token = getState().auth?.token || userData?.token
+  console.log(token);
 
   const header = {
     headers: {
-      Authorization: userData?.token ? `Bearer ${userData?.token}` : "",
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
     },
   }
