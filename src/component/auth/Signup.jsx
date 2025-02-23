@@ -1,19 +1,37 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector  } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast, Toaster } from 'sonner';
+import { signup } from '../../redux/action/authAction';
 
 const Signup = () => {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const dispatch  = useDispatch()
+
+    const { loading, error, token } = useSelector((state) => state.auth);
+    console.log(error)
   
     const handleSubmit = (e) => {
       e.preventDefault();
       if (name && email && password) {
+      if (password.length >= 6) {
+        dispatch(signup(name, email, password))
+        .then(() => {
         toast.success("Account created successfully!");
-        navigate("/todos");
+        navigate("/");
+        })
+        .catch((err) => {
+        toast.error(err.message);
+        });
       } else {
-        toast.error("Please fill in all fields");
+        toast.error("Password must be at least 6 characters long");
+      }
+      } else {
+      toast.error("Please fill in all fields");
       }
     };
   
@@ -56,12 +74,14 @@ const Signup = () => {
             />
           </div>
           <button
-            type="submit"
-            className="w-full px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+            type="submit" disabled={loading}
+            className="w-full px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors cursor-pointer"
           >
-            Create account
+            {loading ? "Signing up..." : "Create account"}
           </button>
         </form>
+        {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
+
         <div className="text-center text-sm">
           <span className="text-gray-500">Already have an account?</span>{" "}
           <button
@@ -72,6 +92,7 @@ const Signup = () => {
           </button>
         </div>
       </div>
+      <Toaster/>
     </div>
   );
 }

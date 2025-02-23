@@ -1,20 +1,38 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
+import { login } from '../../redux/action/authAction';
+import { toast, Toaster } from 'sonner';
 
 const Login = () => {
-    const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const dispatch = useDispatch();
+  
+    const { loading, error, token } = useSelector((state) => state.auth);
+
   
     const handleSubmit = (e) => {
       e.preventDefault();
+
       if (email && password) {
-        // For demo, we'll just redirect to todos
-        toast.success("Successfully logged in!");
-        navigate("/todos");
-      } else {
-        toast.error("Please fill in all fields");
-      }
+            if (password.length >= 6) {
+              dispatch(login(email, password))
+              .then(() => {
+              toast.success("user login successfully!");
+              navigate("/todos");
+              })
+              .catch((err) => {
+              toast.error(err.message);
+              });
+            } else {
+              toast.error("Password must be at least 6 characters long");
+            }
+            } else {
+            toast.error("Please fill in all fields");
+            }
     };
   
     return (
@@ -49,10 +67,12 @@ const Login = () => {
                 className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               />
             </div>
-            <button type="submit" className="w-full px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors cursor-pointer">
-              Sign in
+            <button type="submit" disabled={loading}
+             className="w-full px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors cursor-pointer">
+              {loading ? "Logging in..." : "Login"}
             </button>
           </form>
+          {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
           <div className="text-center text-sm">
             <span className="text-gray-500">Don't have an account?</span>{" "}
             <button
@@ -63,6 +83,7 @@ const Login = () => {
             </button>
           </div>
         </div>
+        <Toaster/>
       </div>
     );
   
