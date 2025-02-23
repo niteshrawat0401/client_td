@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiUrl from "../../config"
 
 // Define action types
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
@@ -10,7 +11,7 @@ export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const LOGOUT = "LOGOUT";
 
 // Backend API URL
-const API_URL = "http://localhost:8000/";
+const API_URL = apiUrl;
 
 export const login = (email, password) => {
   return async (dispatch) => {

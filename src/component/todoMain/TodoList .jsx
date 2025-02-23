@@ -48,7 +48,7 @@ const TodoList = ({ todos, onEdit, onDelete, onToggle }) => {
               <button
                 disabled={todo?.completed}
                 onClick={() => {
-                  onDelete(todo._id);
+                  onDelete(todo?._id);
                   toast.success("Todo deleted successfully");
                 }}
                 className="p-2 rounded-md hover:bg-red-50 transition-colors cursor-pointer"

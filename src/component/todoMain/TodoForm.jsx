@@ -7,8 +7,8 @@ const TodoForm = ({ name, setName, description, setDescription, onSubmit, editTo
 
   useEffect(() => {
     if (editTodo) {
-      setName(editTodo.name);
-      setDescription(editTodo.description);
+      setName(editTodo?.name);
+      setDescription(editTodo?.description);
     }
   }, [editTodo]);
 
@@ -21,7 +21,7 @@ const TodoForm = ({ name, setName, description, setDescription, onSubmit, editTo
     onSubmit({
       name,
       description,
-      completed: editTodo ? editTodo.completed : false,
+      completed: editTodo ? editTodo?.completed : false,
     });
     setName("");
     setDescription("");

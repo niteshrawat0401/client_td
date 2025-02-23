@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiUrl from "../../config";
 import {
   GET_TODOS_REQUEST, GET_TODOS_SUCCESS, GET_TODOS_FAILURE,
   ADD_TODO_REQUEST, ADD_TODO_SUCCESS, ADD_TODO_FAILURE,
@@ -6,7 +7,7 @@ import {
   DELETE_TODO_REQUEST, DELETE_TODO_SUCCESS, DELETE_TODO_FAILURE
 } from "./todoTypes";
 
-const API_URL = "http://localhost:8000/";
+const API_URL = apiUrl;
 
 // Fetch All To-Dos
 export const fetchTodos = () => async (dispatch) => {

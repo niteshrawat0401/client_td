@@ -12,7 +12,7 @@ const Signup = () => {
 
     const dispatch  = useDispatch()
 
-    const { loading, error, token } = useSelector((state) => state.auth);
+    const { loading, error, token } = useSelector((state) => state?.auth);
     console.log(error)
 
     const handleSubmit = async (e) => {
@@ -23,7 +23,7 @@ const Signup = () => {
         return;
       }
     
-      if (password.length < 6) {
+      if (password?.length < 6) {
         toast.error("Password must be at least 6 characters long");
         return;
       }

@@ -7,28 +7,6 @@ import TodoList from "./TodoList ";
 import { addTodo, deleteTodo, fetchTodos, updateTodo } from "../../redux/action/todoActions";
 import { logout } from "../../redux/action/authAction";
 
-// Dummy initial data
-const initialTodos = [
-  {
-    id: 1,
-    title: "Complete project proposal",
-    description: "Write and submit the project proposal by end of day",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "Review design mockups",
-    description: "Review and provide feedback on the new design mockups",
-    completed: true,
-  },
-  {
-    id: 3,
-    title: "Team meeting",
-    description: "Attend weekly team sync at 2 PM",
-    completed: false,
-  },
-];
-
 const Todos = () => {
   // const [todos, setTodos] = useState(initialTodos);
   const [name, setName] = useState("");
@@ -37,11 +15,11 @@ const Todos = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { todos, loading, error } = useSelector((state) => state.todo);
+  const { todos, loading, error } = useSelector((state) => state?.todo);
 
   
   const handleAddTodo = (newTodo) => {
-    console.log(newTodo)
+    // console.log(newTodo)
     dispatch(addTodo(newTodo))
     toast.success("Todo added successfully");
   };
@@ -52,7 +30,7 @@ const Todos = () => {
 
   const handleEditTodo = (todo) => {
     if (!editingTodo) return;
-    dispatch(updateTodo(editingTodo._id, todo))
+    dispatch(updateTodo(editingTodo?._id, todo));
     setEditingTodo(null);
     toast.success("Todo updated successfully");
   };
@@ -101,7 +79,7 @@ const Todos = () => {
         />
         <Toaster/>
 
-        {todos.length > 0 ? (
+        {todos?.length > 0 ? (
           <TodoList
             todos={todos}
             onEdit={setEditingTodo}
