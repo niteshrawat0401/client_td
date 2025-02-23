@@ -19,7 +19,7 @@ export const fetchTodos = () => async (dispatch, getState) => {
 
   const header = {
     headers: {
-      Authorization: userData?.token ? `Bearer ${token}` : "",
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
     },
   }
