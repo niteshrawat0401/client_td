@@ -12,15 +12,19 @@ const API_URL = apiUrl;
 const userData = JSON.parse(localStorage.getItem("token"));
 
 // Fetch All To-Dos
-export const fetchTodos = () => async (dispatch) => {
-  
+export const fetchTodos = () => async (dispatch, getState) => {
+
+  let token = getState().auth?.token || userData?.token
+  console.log(token);
+
   const header = {
     headers: {
-      Authorization: userData?.token ? `Bearer ${userData?.token}` : "",
+      Authorization: userData?.token ? `Bearer ${token}` : "",
       'Content-Type': 'application/json'
     },
   }
   dispatch({ type: GET_TODOS_REQUEST });
+
   try {
     const response = await axios.get(`${API_URL}api/todos`, header);
     // console.log(response.data.getAllTodo)
@@ -69,7 +73,7 @@ export const updateTodo = (id, updatedData) => async (dispatch) => {
 
 // Delete a To-Do
 export const deleteTodo = (id) => async (dispatch) => {
-  
+
   const header = {
     headers: {
       Authorization: userData?.token ? `Bearer ${userData?.token}` : "",
