@@ -1,7 +1,6 @@
 import axios from "axios";
 import apiUrl from "../../config"
 
-// Define action types
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
@@ -45,7 +44,7 @@ export const signup = (name, email, password) => {
     } catch (error) {
       dispatch({type: SIGNUP_FAILURE,payload: error.response?.data?.message || "Signup failed",
       });
-      throw new Error(error.response?.data?.message || "Signup failed"); // Throw error to be caught in `handleSubmit`
+      throw new Error(error.response?.data?.message || "Signup failed");
     }
   };
 };
