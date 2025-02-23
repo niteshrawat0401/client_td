@@ -12,6 +12,7 @@ export const LOGOUT = "LOGOUT";
 
 // Backend API URL
 const API_URL = apiUrl;
+console.log(import.meta.env)
 
 export const login = (email, password) => {
   return async (dispatch) => {
