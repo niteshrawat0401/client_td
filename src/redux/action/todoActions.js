@@ -35,7 +35,7 @@ export const fetchTodos = () => async (dispatch, getState) => {
 };
 
 // Add a New To-Do
-export const addTodo = (todoData) => async (dispatch, ) => {
+export const addTodo = (todoData) => async (dispatch, getState) => {
 
   let token = getState().auth?.token || userData?.token
   console.log(token);
