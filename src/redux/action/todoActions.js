@@ -13,14 +13,16 @@ const userData = JSON.parse(localStorage.getItem("token"));
 
 // Fetch All To-Dos
 export const fetchTodos = () => async (dispatch) => {
+  
+  const header = {
+    headers: {
+      Authorization: userData?.token ? `Bearer ${userData?.token}` : "",
+      'Content-Type': 'application/json'
+    },
+  }
   dispatch({ type: GET_TODOS_REQUEST });
   try {
-    const response = await axios.get(`${API_URL}api/todos`, {
-      headers: {
-        'Authorization': userData?.token ? `Bearer ${userData?.token}` : "",
-        'Content-Type': 'application/json'
-      },
-    });
+    const response = await axios.get(`${API_URL}api/todos`, header);
     // console.log(response.data.getAllTodo)
     dispatch({ type: GET_TODOS_SUCCESS, payload: response.data.getAllTodo });
   } catch (error) {
@@ -30,14 +32,16 @@ export const fetchTodos = () => async (dispatch) => {
 
 // Add a New To-Do
 export const addTodo = (todoData) => async (dispatch) => {
+
+  const header = {
+    headers: {
+      Authorization: userData?.token ? `Bearer ${userData?.token}` : "",
+      'Content-Type': 'application/json'
+    },
+  }
   dispatch({ type: ADD_TODO_REQUEST });
   try {
-    const response = await axios.post(`${API_URL}api/todos`, todoData , {
-      headers: {
-        'Authorization': userData?.token ? `Bearer ${userData?.token}` : "",
-        'Content-Type': 'application/json'
-      },
-    });
+    const response = await axios.post(`${API_URL}api/todos`, todoData , header);
     dispatch({ type: ADD_TODO_SUCCESS, payload: response.data.newTodo
     });
   } catch (error) {
@@ -48,15 +52,15 @@ export const addTodo = (todoData) => async (dispatch) => {
 
 // Update a To-Do
 export const updateTodo = (id, updatedData) => async (dispatch) => {
-    console.log(id , updateTodo)
-  dispatch({ type: UPDATE_TODO_REQUEST });
-  try {
-    const response = await axios.put(`${API_URL}api/todos/${id}`, updatedData , {
+    const header = {
       headers: {
-        'Authorization': userData?.token ? `Bearer ${userData?.token}` : "",
+        Authorization: userData?.token ? `Bearer ${userData?.token}` : "",
         'Content-Type': 'application/json'
       },
-    });
+    }
+  dispatch({ type: UPDATE_TODO_REQUEST });
+  try {
+    const response = await axios.put(`${API_URL}api/todos/${id}`, updatedData , header);
     dispatch({ type: UPDATE_TODO_SUCCESS, payload: response.data.updateTodo });
   } catch (error) {
     dispatch({ type: UPDATE_TODO_FAILURE, payload: error.response?.data?.message || "Failed to update todo" });
@@ -65,14 +69,16 @@ export const updateTodo = (id, updatedData) => async (dispatch) => {
 
 // Delete a To-Do
 export const deleteTodo = (id) => async (dispatch) => {
+  
+  const header = {
+    headers: {
+      Authorization: userData?.token ? `Bearer ${userData?.token}` : "",
+      'Content-Type': 'application/json'
+    },
+  }
   dispatch({ type: DELETE_TODO_REQUEST });
   try {
-    await axios.delete(`${API_URL}api/todos/${id}` , {
-      headers: {
-        'Authorization': userData?.token ? `Bearer ${userData?.token}` : "",
-        'Content-Type': 'application/json'
-      },
-    });
+    await axios.delete(`${API_URL}api/todos/${id}`, header);
     dispatch({ type: DELETE_TODO_SUCCESS, payload: id });
   } catch (error) {
     dispatch({ type: DELETE_TODO_FAILURE, payload: error.response?.data?.message || "Failed to delete todo" });
