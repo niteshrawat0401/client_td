@@ -18,6 +18,10 @@ const TodoForm = ({ name, setName, description, setDescription, onSubmit, editTo
       toast.error("Please enter a title");
       return;
     }
+    if (!description.trim()) {
+      toast.error("Please enter a description");
+      return;
+    }
     onSubmit({
       name,
       description,
