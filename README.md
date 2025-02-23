@@ -57,4 +57,4 @@ npm run dev
 ```
 
 ## Application URL
-https://github.com/niteshrawat0401/client_td.git
+**https://client-td-olive.vercel.app/**
