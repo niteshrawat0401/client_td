@@ -13,10 +13,7 @@ const userData = JSON.parse(localStorage.getItem("token"));
 
 // Fetch All To-Dos
 export const fetchTodos = () => async (dispatch, getState) => {
-
-  let token = getState().auth?.token || userData?.token
-  console.log(token);
-
+  let token = getState().auth?.token || userData?.token;
   const header = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -36,10 +33,7 @@ export const fetchTodos = () => async (dispatch, getState) => {
 
 // Add a New To-Do
 export const addTodo = (todoData) => async (dispatch, getState) => {
-
-  let token = getState().auth?.token || userData?.token
-  console.log(token);
-
+  let token = getState().auth?.token || userData?.token;
   const header = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -59,9 +53,7 @@ export const addTodo = (todoData) => async (dispatch, getState) => {
 
 // Update a To-Do
 export const updateTodo = (id, updatedData) => async (dispatch, getState) => {
-  let token = getState().auth?.token || userData?.token
-  console.log(token);
-
+  let token = getState().auth?.token || userData?.token;
   const header = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -79,10 +71,7 @@ export const updateTodo = (id, updatedData) => async (dispatch, getState) => {
 
 // Delete a To-Do
 export const deleteTodo = (id) => async (dispatch, getState) => {
-
-  let token = getState().auth?.token || userData?.token
-  console.log(token);
-
+  let token = getState().auth?.token || userData?.token;
   const header = {
     headers: {
       Authorization: `Bearer ${token}`,
