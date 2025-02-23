@@ -7,6 +7,7 @@ import {
   
   import {thunk} from "redux-thunk";
   import {authReducer} from "./reducers/authReducer";
+import { todoReducer } from "./reducers/todoReducer";
   
   const composeEnhancers =
     typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -23,6 +24,7 @@ import {
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  todo: todoReducer,
   // Add other reducers here
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import { login } from '../../redux/action/authAction';
@@ -12,28 +12,35 @@ const Login = () => {
   const dispatch = useDispatch();
   
     const { loading, error, token } = useSelector((state) => state.auth);
-
+    
+    useEffect(() => {
+      if (token) {
+        toast.success("User logged in successfully!");
+        navigate("/todos");
+      }
+    }, [token, navigate]);
   
     const handleSubmit = (e) => {
       e.preventDefault();
-
-      if (email && password) {
-            if (password.length >= 6) {
-              dispatch(login(email, password))
-              .then(() => {
-              toast.success("user login successfully!");
-              navigate("/todos");
-              })
-              .catch((err) => {
-              toast.error(err.message);
-              });
-            } else {
-              toast.error("Password must be at least 6 characters long");
-            }
-            } else {
-            toast.error("Please fill in all fields");
-            }
+  
+      if (!email || !password) {
+        toast.error("Please fill in all fields");
+        return;
+      }
+  
+      if (password.length < 6) {
+        toast.error("Password must be at least 6 characters long");
+        return;
+      }
+  
+      dispatch(login(email, password));
     };
+  
+    useEffect(() => {
+      if (error?.status === 400) {
+        toast.error(error?.response?.data?.message);
+      }
+    }, [error]);
   
     return (
       <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gray-50 to-gray-100">

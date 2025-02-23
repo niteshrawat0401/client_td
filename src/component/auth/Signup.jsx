@@ -14,27 +14,29 @@ const Signup = () => {
 
     const { loading, error, token } = useSelector((state) => state.auth);
     console.log(error)
-  
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      if (name && email && password) {
-      if (password.length >= 6) {
-        dispatch(signup(name, email, password))
-        .then(() => {
+      
+      if (!name || !email || !password) {
+        toast.error("Please fill in all fields");
+        return;
+      }
+    
+      if (password.length < 6) {
+        toast.error("Password must be at least 6 characters long");
+        return;
+      }
+    
+      try {
+        await dispatch(signup(name, email, password));
         toast.success("Account created successfully!");
         navigate("/");
-        })
-        .catch((err) => {
+      } catch (err) {
         toast.error(err.message);
-        });
-      } else {
-        toast.error("Password must be at least 6 characters long");
-      }
-      } else {
-      toast.error("Please fill in all fields");
       }
     };
-  
+    
     return (
       <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="w-full max-w-md p-8 space-y-6 bg-white/80 backdrop-blur-sm border border-white/20 shadow-lg rounded-lg">
