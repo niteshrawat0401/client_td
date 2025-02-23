@@ -57,4 +57,4 @@ npm run dev
 ```
 
 ## Application URL
-**https://client-td-olive.vercel.app/**
+https://client-td-olive.vercel.app/
